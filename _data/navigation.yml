@@ -3,6 +3,7 @@ main:
   # - title: "Quick-Start Guide"
   #   url: https://mmistakes.github.io/minimal-mistakes/docs/quick-start-guide/
   - title: "About"
+    url: https://github.com/Liuxy94/liuxy94.github.io/about/
     # url: https://mmistakes.github.io/minimal-mistakes/about/
   - title: "Categories"
     url: /categories/
