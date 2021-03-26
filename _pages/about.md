@@ -1,11 +1,11 @@
 ---
 layout: single
 title: "About"
-description: "1234"
+excerpt: "A bunch of text to test readability."
 permalink: /about/
 author_profile: true
 mathjax: true
 header:
-    image: /assets/images/head.jpg
+    overlay_image: /assets/images/head.jpg
 ---
 
