@@ -316,3 +316,14 @@ very simple projects, adding change history comments to the function files is ce
 nothing. <br>
 `% 24 November 1971, D.B. Cooper, exit conditions modified. `
 
+## References
+[MATLAB Programming Style Guidelines][1], Richard Johnson<br>
+The Practice of Programming, Brian Kernighan and Rob Pike<br>
+The Pragmatic Programmer, Andrew Hunt, David Thomas and Ward Cunningham<br>
+[Java Programming Style Guidelines][2], Geotechnical Software Services<br>
+Code Complete, Steve McConnel - Microsoft Press<br>
+[C++ Coding Standard][3], Todd Hoff<br>
+
+[1]: https://www.ee.columbia.edu/~marios/matlab/MatlabStyle1p5.pdf
+[2]: http://docshare02.docshare.tips/files/26690/266901746.pdf
+[3]: http://132.248.182.159/utils/CyC++/CyC++/CyC++Style/c++_coding_standards.pdf
