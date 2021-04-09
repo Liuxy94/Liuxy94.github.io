@@ -14,6 +14,51 @@ author_profile: true
 另外这是一个不错的快速上手 Markdown 的[网站](https://commonmark.org/).<br>
 >You got to know the rules before you can break them. otherwise, it's no fun. Sonny Crockett in Miami Vice.
 
+## 精简版
+
+### Name conventions
+1. Variables:  Variable names should be in mixed case starting with lower case. <br>
+`linearity`, `credibleThreat`, `quakityOfLife`
+2. Named constants (including globals) should be all uppercase using underscore to seperate words.<br>
+`MAX_ITERATIONS`,  `COLOR_RED`
+3. Structure names should begin with a capital letter.<br>
+Use `Segment.length`<br>
+Avoid `Segment.segmentlength`
+4. Names of functions should be written in lower cae.<br>
+`compute_total_width(.)`
+
+### Files and Organization
+1. A function used by <strong>only one other function</strong> should be packaged as its subfunction in the same file. This makes the code easier to understand and maintain. <br>
+
+### Statements
+1. Use of global variables and constants should be minimized. <br>
+Some use of global variables can be replaced with the cleaner `persistent` or with `getappdata`. <br>
+2. Loops: Loop variables should be initialized immediately before the loop. <br>
+3. Conditionals
+    * Introduce temporary logical variables instead. <br>
+    * A switch statement should include the `otherwise` condition. <br>
+    * The switch variable should usually be a string. 
+    
+### Layout, Comments and Documentation 
+1. Layout
+    * In general a line of code should contain only one executable statement. <br>
+    * Short single statement if, for or while statements can be written on one line. <br>
+        `if(condition), statement; end` <br>
+        `while(condition), statement; end` <br>
+        `for iTest = 1:nTest, statement; end` <br>
+2. White Space
+    * Surround \=, &, and \| by spaces. <br>
+        `simplesSum = firstTerm+secondTerm;`
+    * Commas and Keywords can be followed by a space.<br>
+3. Comments
+    * Function header comments should support the use of `help` and `lookfor`.
+    * Avoid clutter in the help printout of the function header.
+4. Documentation
+    * Formal documentation: To be useful documentation should include a readable description of what the code is    supposed to do (Requirements), how it works (Design), which functions it depends on and how it is used by
+    other code (Interfaces), and how it is tested.
+    * Consider writing the documentation first.<br>
+
+
 ## Naming Conventions
 
 ### Variables
@@ -159,7 +204,7 @@ end
 statement.  <br>
 3. The conditional expression if 0 should be avoided, except for temporary block
 commenting. <br>
-4. A switch statement should include the otherwise condition. <br>
+4. A switch statement should include the `otherwise` condition. <br>
 Leaving the `otherwise` out is a common error, which can lead to unexpected results.
 ```matlab
 switch (condition)
@@ -269,8 +314,8 @@ upper case letter and end with a period.
 4. Comments should usually have the same indentation as the statements referred to.
 This is to avoid having the comments break the layout of the program. End of line comments tend
 to be cryptic and should be avoided except for constant definitions.
-5. Function header comments should support the use of help and lookfor.
-help prints the first contiguous block of comment lines from the file. Make it helpful.
+5. Function header comments should support the use of `help` and `lookfor`.
+`help` prints the first contiguous block of comment lines from the file. Make it helpful.
 lookfor searches the first comment line of all m-files on the path. Try to include likely search
 words in this line.
 6. Function header comments should discuss any special requirements for the input arguments.
@@ -283,7 +328,7 @@ type of array.
 7. Function header comments should describe any side effects.
 Side effects are actions of a function other than assignment of the output variables. A common
 example is plot generation. Descriptions of these side effects should be included in the header
-comments so that they appear in the help printout.
+comments so that they appear in the `help` printout.
 8. In general the last function header comment should restate the function line.
 This allows the user to glance at the help printout and see the input and output argument usage.
 9. Writing the function name using uppercase in the function header is controversial.
