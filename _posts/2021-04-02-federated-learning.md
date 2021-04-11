@@ -38,7 +38,17 @@ Here, we take the IBM federated learning as the framework to run on MNIST datase
 
 ### Install Package
 
-
+1. Setup an environment locally
+```python
+conda create -n IBM_FL python=3.6 tensorflow==1.15
+```
+```python
+conda activate IBM_FL
+```
+```python
+pip install <IBM_federated_learning_whl_file>
+```
+2. 
 
 
 [1]: https://github.com/IBM/federated-learning-lib
