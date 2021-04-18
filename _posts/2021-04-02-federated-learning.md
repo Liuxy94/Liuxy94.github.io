@@ -48,18 +48,19 @@ conda activate IBM_FL
 ```python
 pip install <IBM_federated_learning_whl_file>
 ```
+
 ### Fusion Methods
 
 | Method | Short description |
 | ------------- |:-------------:| 
 | Iterative Average | Simplest aggregation that is used as a baseline where all parties’ model updates are equally weighted. |
 | Weighted average fusion |  Weights the average of updates based on the number of each party sample. Use with training data sets of widely differing sizes. |
-| [Coordinate-Median Aggregation Fusion] [2] | Avoids the case that some computing units may behave abnormally, or even exhibit Byzantine failures—arbitrary and potentially adversarial behavior. | 
+| [Coordinate-Median Aggregation Fusion] [2] | Avoids the case that some computing units may behave abnormally, or even exhibit Byzantine failures—arbitrary and potentially adversarial behavior. |
 | [Federated Averaging Fusion] [3] |  Leaves the training data distributed on the mobile devices, and learns a shared model by aggregating locally-computed updates.  |
-| [Krum Fusion][4] | An aggregation rule that satisfies a resilience property of the aggregation rule capturing the basic requirements to guarantee convergence despite f Byzantine workers.  | 
+| [Krum Fusion][4] | An aggregation rule that satisfies a resilience property of the aggregation rule capturing the basic requirements to guarantee convergence despite f Byzantine workers. | 
 | [PFNM Aggregation Fusion] [5] |  |
-| [SPAHM Aggregation Fusion][6] | |
-| [Zeno Fusion][7] | tolerant to an arbitrary number of faulty workers.
+| [SPAHM Aggregation Fusion][6] |  |
+| [Zeno Fusion][7] | tolerant to an arbitrary number of faulty workers. |
 
 
 [1]: https://github.com/IBM/federated-learning-lib
