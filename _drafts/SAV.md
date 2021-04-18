@@ -36,7 +36,7 @@ compute the inverse of operator $A:= I + \sigma \Delta$
 update $x$ based on GD, ADAM, LSGD
 * `SAV(x0, lr, Parameter)` <br>
 update $x$ based on SAV approach
-* `test_quad(test_name)` <br>
+* `test_cases(test_name)` <br>
 check the inverse operator and disspation law
 * `compare
 
