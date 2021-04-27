@@ -48,9 +48,15 @@ $$ P(\theta | X, \alpha) = \frac{P(X|\theta, \alpha) P(\theta | \alpha)}{P(X|\al
 
 Here, $X$ is our dataset, $\theta$ is the parameter or parametr set of the distribution. $\alpha$ is the hyperparameter of the distribution.  
 
-$$P(\theta |X, \alpha)$$ is the posterior distribution, also known as $\alpha$ - posteriori. 
-$$P(X| \theta, \alpha)$$ is the likehood, and $$P(\theta| \alpha)$$ is the prior. 
-The whole idea of the training process is that as we get more information about the data distribution, we will adjust the model parameter θ to fit the data. Technically speaking, the parameters of the posterior distribution will be plugged into the prior distribution for the next iteration of the training process. That is, the posterior distribution of a given training step will eventually become the prior of the next step. This procedure will be repeated until there is little variation in the posterior distribution $P(\theta | X, \alpha)$ between steps.
+$$P(\theta |X, \alpha)$$ 
+is the posterior distribution, also known as $\alpha$ - posteriori. 
+$$P(X| \theta, \alpha)$$ 
+is the likehood, and 
+$$P(\theta| \alpha)$$ 
+is the prior. 
+The whole idea of the training process is that as we get more information about the data distribution, we will adjust the model parameter θ to fit the data. Technically speaking, the parameters of the posterior distribution will be plugged into the prior distribution for the next iteration of the training process. That is, the posterior distribution of a given training step will eventually become the prior of the next step. This procedure will be repeated until there is little variation in the posterior distribution 
+$P(\theta | X, \alpha)$ 
+between steps.
 
 The model parameters will be $U$ and $V$, whereas $R$ will be our dataset. Once trained, we will end up with a revised $R^*$ matrix that will also contain ratings for user-item cells that were originally empty in $R$. We will use this revised ratings matrix to make predictions. Accordingly, $\theta$ = {$U, V$}, $X = R$, $\alpha = \sigma^2$, where $\sigma$ is the standard deviation of a zero-mean spherical Gaussian distribution. Then, by replacing these expressions in previous equation we will get:
 
@@ -88,7 +94,8 @@ $$ \ln P(U,V | R, \sigma^2) = -\frac{1}{2\sigma^2}\sum\limits_{i=1}^{n}\sum\limi
 
 Finally, by introducing some additional notation to identify the hyperparameters of the model, we will get:
 
-$$L = -\frac{1}{2}(\sum\limits_{i=1]^{n}\sum\limits_{j=1}^{m}) \delta_{ij} (R_{ij} - U_i^TV_j)^2 + \lambda_U \sum\limits_{i=1}^{n}\|U_i\|^2_F + \lambda_V \sum\limits_{j=1}^{m}\|V_j\|^2_F $$
+$$ L = -\frac{1}{2}(\sum\limits_{i=1}^{n}\sum\limits_{j=1}^{m}) \delta_{ij} (R_{ij} - U_i^TV_j)^2 + \lambda_U \sum\limits_{i=1}^{n}\|U_i\|^2_F + \lambda_V \sum\limits_{j=1}^{m}\|V_j\|^2_F $$
+
 
 [1]: https://developers.google.com/machine-learning/recommendation/collaborative/matrix
 [2]: https://cloud.google.com/architecture/recommendation-system-tensorflow-overview
