@@ -16,6 +16,12 @@ tags:
 
 ## Collaborative Filtering
 
+### User by User
+We have the feedback matrix $R$ and
+Compute the Pearson Correlation coefficient
+
+$P_{ij} = \frac{E$
+
 ### Matrix Factorization
 
 Matrix factorization is a simple embedding model. Given the feedback matrix $R\in R^{m\times n}$, where $m$ is the number of users (or queries) and $n$ is the number of items, the model learns:
