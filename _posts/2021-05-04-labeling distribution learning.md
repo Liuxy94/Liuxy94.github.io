@@ -12,6 +12,8 @@ tags:
     - machine learning
     - multi-label Learning 
     - classification
+header-includes:
+    - \usepackage[ruled,vlined,linesnumbered]{algorithm2e}
 ---
 
 ## Label distribution learning
@@ -39,7 +41,7 @@ With the **smoothness assumption** that the points close to each other are more 
 
 $$L_{\text{feature}}(W) = \sum\limits_{i=1}^{n} \|x_i - \sum\limits_{j\neq i}W_{i}^{j}x_j\|^2,$$
 
-where $W_i^j = 0$ unless $x_j$ is one of $x_i$'s $K$-nearest neighbors. Without loss of generality, we assume that $\|W_i\|_{1} = \sum\limits_{k=1}^{n} W_i^k = 1$. Then, the approximation can be solved as a quadrtic function with constraint that
+where $W_i^j = 0$ unless $x_j$ is one of $x_i$'s $K$-nearest neighbors. Without loss of generality, we assume that $$\|W_i\|_1=\sum\limits_{k=1}^{n} W_i^k = 1$$. Then, the approximation can be solved as a quadrtic function with constraint that
 
 $$ \arg\min\limits_{W_i} W_i^T G_iW_i \quad \text{s.t. } \|W_i\|_1 = 1,$$
 
@@ -55,11 +57,49 @@ where $\lambda >0$.
 1. It is convenient to judge whether a label is relevant or irrelevant to the example by the sign of it; 
 2. It guarantees that the relevant numerical labels are larger than the irrelevant ones; 
 3. The minimum of the relevant numerical labels will be equal to $\lambda$ or the maximum of the irrelevant numerical labels will be equal to $-\lambda$. This makes the scale of the reconstructed numerical labels on the control.
+
 #### Implementation
 The reconstructed numerical labels are real and the prob- lem can not be treated as a classification but rather a regres- sion problem. In the multi-label case, it is actually a multi- output regression problem. There have been some efficient algorithms proposed such as multi-output support vector regression (MSVR) and we propose the optimizor based on the MSVR.
 Similar to the MSVR, we generalize the 1-D SVR to solve the multi-dimensional case. In addition, our regressor not only concerns the distance between the predicted and the real values, but also the sign consistency of them. It leads to the minimization of
 
 $$L(\Theta, b) = \frac{1}{2}\sum\limits_{j=1}^{c}\|\theta^j\|^2 + C_1\sum\limits_{i=1}^{n}L_1(r_i) + C_2 \sum\limits_{i=1}^{n}\sum\limits_{j=1}^{c}L_2(t_i^j),$$
+
+where $r_i = \|e_i\| = \sqrt{e^T_ie_i}, e_i = d_i - \psi(x_i)^T\Theta - b$, $t_{i}^j = y^{j}_i(\psi(x_i)^T\theta^j + b^j)$, $\Theta = [\theta^1, \ldots, \theta^q]$, $b=[b^1,\ldots,b^q]$, and $\psi(x)$ is a nonlinear transformation of $x$ to a higher-dimensional feature space $R^{H}$.
+
+To consider all dimensions into a unique restriction and yield a single support vector for all dimensions, the $L_1$ loss is set as
+
+$$\begin{equation}L_1(r) = \begin{cases}0 & r < \varepsilon \\ r^2 - 2r\varepsilon + \varepsilon^2 & r \geq \varepsilon.\end{cases}\end{equation} $$
+
+This will create an insensitive zone determined by $\varepsilon$ around the estimate, i.e., the loss of $r$ less than $\varepsilon$ will be ignored.
+To make the signs of the numerical label and the logical label same as much as possible, the $L_2$ loss is set as
+
+$$\begin{equation}L_2(t) = -t\sigma (-t) \begin{cases}0 & t>0 \\-t & t\geq 0.\end{cases}\end{equation}, $$
+
+where $\sigma(t)$ is an activation function where the value will be equal to $0$ if $t$ is negative, otherwise the value will be equal to $1$. The meaning of $L_2(t)$ is that if the signs of the predicted numerical label and the logical label are different, there will be some positive loss, otherwise the loss will be zero.
+
+To minimize $L(\Theta, b)$, we use an iterative quasi-Newton method named Iterative Re-Weighted Least Square (IRWLS). Firstly, $L_1(\Theta, b)$ is approximated by its first order Taylor expansion at the solution of the current $k$-th iteration, denoted by $\Theta^{(k)}$ and $b^{(k)}$:
+
+$$L_1'(r_i) = L_1(r_i^{(k)}) + \frac{dL_1(r)}{dr} {|}_{r_i^{(k)}} \frac{(e_i^{(k)})^T}{r_i^{(k)}}(e_i - e_i^{(k)})$$
+
+where $e^{(k)}_i$ and $r_i^{(k)}$ are calculated from $\Theta ^{(k)}$ and $b^{(k)}$. Then a quadratic approximation is futher constructed
+
+$$\begin{eqnarray} L_1''(r_i) &=& L_1(r_i^{(k)}) + \frac{dL_1(r)}{dr} {|}_{r_i^{(k)}} \frac{r_i^2 - (r_i^{(k)})^2}{2r_i^{(k)}}\\ &=& \frac{1}{2}a_i r_i^2 + \tau\end{eqnarray},$$
+
+where
+
+$$\begin{equation} a_i = \frac{1}{r_i^{(k)}}\frac{dL_1(r)}{dr} {|}_{r_i^{(k)}} = \begin{cases} 0 & r_i^{(k)}< \varepsilon\\ \frac{2(r_i^{(k)} - \varepsilon)}{r_i^{(k)}} & r_i^{(k)} \geq \varepsilon\end{cases}\end{equation},$$
+
+and $\tau$ is a constant term that does not depend on either $\Theta^{(k)}$ or $b^{(k)}$. Finally, we can deduce that
+
+$$ L''(\Theta, b) = \frac{1}{2} \sum\limits_{j=1}^{c} \|\theta^j\|^2 + \frac{1}{2} C_1 \sum\limits_{i=1}^{n} a_i r_i^2 - C_2 \sum\limits_{i=1}^{n}\sum\limits_{j=1}^{c} t_i^j \sigma(-t_i^j) + \tau.$$
+
+Now, it becomes a piecewise quadratic problem whose optimum can be integrated as solving a system of linear equations for $j = 1, \ldots, c$:
+
+$$\begin{bmatrix}C_1\Psi^T D_a\Psi + I & C_1\Psi^T a \\ C_1a^T\Psi & C_11^T a\end{bmatrix} \begin{bmatrix}\theta^j \\ b^j \end{bmatrix} = \begin{bmatrix}C_1\Psi^T D_a d^j+ I & C_2\Psi^T D_j l^j \\ C_1a^Td^j + C_2(\sigma^j)^T y^j \end{bmatrix}$$
+
+where $\Psi = [\psi(x_1), \ldots, \psi(x_n)]^T$, $a = [a_1,\ldots, a_n]^T$, $(D_a)^k_i = a_i\sigma_i^k$ where $\delta^{k}_i$ is the Kronecker's delta function, $(D_j)_i^k = \sigma(-t^j_i)\sigma^k_i$, $\sigma^j = [\sigma(-t_1^j), \ldots, \sigma(-t_n^j)]^T$, $l^j = [l_1^j, \ldots, l_n^j]^T$. Then, we have the optimal solution of the system as the optimization of $L(\Theta, b)$ descending direction. And the steepest descent can be applied via line search algorithm along this direction.
+
+
 
 ## Manifold Learning
 
