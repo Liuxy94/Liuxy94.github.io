@@ -7,7 +7,7 @@ categories:
     - leetcode
 tags:
     - array
-    -sorted array
+    - sorted array
 ---
 
 ## Problem

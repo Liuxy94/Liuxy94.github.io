@@ -7,7 +7,7 @@ categories:
     - leetcode
 tags:
     - array
-    - sum of array
+    - insert
 ---
 
 ## Problem
