@@ -1,6 +1,6 @@
 ---
 title: "Inflected Form"
-excerpt: 'Label distribution learning (LDL) is a general learning framework, which assigns to an instance a distribution over a set of labels rather than a single label or multiple labels.'
+excerpt: 'nlp'
 toc: true
 toc_sticky: true
 categories: 
