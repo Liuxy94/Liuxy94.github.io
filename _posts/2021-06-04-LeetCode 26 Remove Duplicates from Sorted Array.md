@@ -1,5 +1,5 @@
 ---
-title: "26. Remove Duplicates from Sorted Array"
+title: "LeetCode 26 Remove Duplicates from Sorted Array"
 excerpt: 'leetcode'
 toc: true
 toc_sticky: true

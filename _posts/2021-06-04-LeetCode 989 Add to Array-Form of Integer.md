@@ -1,5 +1,5 @@
 ---
-title: "989. Add to Array-Form of Integer"
+title: "LeetCode 989 Add to Array-Form of Integer"
 excerpt: 'leetcode'
 toc: true
 toc_sticky: true
