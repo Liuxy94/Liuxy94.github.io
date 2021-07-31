@@ -53,7 +53,7 @@ def searchInsert(self, nums: List[int], target: int) -> int:
 2. 确定target在nums中后，按照二分法去逼近target。在while循环结束后，可以保证target在[left, right]内，且区间长度为2。
 3. 如果  `target == nums[mid]`，则直接return mid。 利用mid来判断target是被夹在left和mid间 还是 mid和right间。
 * left < mid: target 插入 mid (left+1)；
-* mid < right: target 插入 mid+1 （right）。
+* mid < right: target 插入 mid+1（right）。
 
 ### 时间复杂度分析
 $O(log(n))$ where $n= `len(nums)` $
